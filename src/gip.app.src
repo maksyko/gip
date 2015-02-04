@@ -1,0 +1,23 @@
+{application, gip,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+    kernel,
+    stdlib,
+    crypto,
+    asn1,
+    public_key,
+    ssl,
+    sasl,
+    inets,
+    compiler,
+    syntax_tools,
+    sync,
+    goldrush,
+    jsx
+  ]},
+  {mod, { gip_app, []}},
+  {env, []}
+ ]}.

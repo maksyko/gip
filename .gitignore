@@ -1,0 +1,9 @@
+.idea/*
+deps/*
+log/*
+erl_crash.dump
+sasl.log
+gip.iml
+ebin/*
+aic.ets
+Guardfile
