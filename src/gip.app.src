@@ -14,9 +14,6 @@
     inets,
     compiler,
     syntax_tools,
-    sync,
-    goldrush,
-    jsx,
     egeoip
   ]},
   {mod, { gip_app, []}},

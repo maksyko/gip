@@ -12,6 +12,6 @@ clean:
 	@( $(REBAR) clean )
 
 run:
-	@( erl -boot start_sasl -config app.config -pa ebin deps/*/ebin -s gip )
+	@( erl -pa ebin deps/*/ebin -s gip )
 
 .PHONY: all deps compile clean run
