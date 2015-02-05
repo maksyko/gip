@@ -31,8 +31,6 @@ start_link() ->
 init([]) ->
   {ok, #state{}}.
 
-handle_call({google, IP}, _From, State) ->
-  {reply, gip_service:get_geo_data(IP), State};
 handle_call({coord, IP}, _From, State) ->
   {reply, gip_service:get_geo_coordinates(IP), State};
 handle_call(_Request, _From, State) ->

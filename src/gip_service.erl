@@ -1,18 +1,7 @@
 -module(gip_service).
 -export([get/1,request/2]).
--export([get_geo_data/1]).
 -export([get_geo_coordinates/1]).
 
-
-get_geo_data(Ip) when (is_binary(Ip) or is_list(Ip)) ->
-  GeoData = get_geo_coordinates(Ip),
-  GET = ?MODULE:get("http://maps.google.com/maps/api/geocode/json?latlng="++to_list(proplists:get_value(<<"lat">>, GeoData))++","++to_list(proplists:get_value(<<"lng">>, GeoData))++"&sensor=false"),
-  {ok,{{"HTTP/1.1",200,"OK"}, _ResponseHeader, ResponseBody}} = GET,
-  BodyList = jsx:decode(to_binary(ResponseBody)),
-  [Components | _] = proplists:get_value(<<"results">>, BodyList),
-  [Adr, Street, Street2 | _] = [ LongName  || [{<<"long_name">>,LongName} | _ ] <-proplists:get_value(<<"address_components">>, Components) ],
-  lists:merge(GeoData,[{<<"address">>, Adr}, {<<"street">>, Street}, {<<"street2">>, Street2}]);
-get_geo_data(_) -> {error, wrong_coordinates_data}.
 
 get_geo_coordinates(Ip) when (is_binary(Ip) or is_list(Ip)) ->
   AddressInt = egeoip:ip2long(to_list(Ip)),
