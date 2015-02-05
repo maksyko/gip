@@ -11,5 +11,6 @@ start_link() ->
 
 init([]) ->
   Flags = {one_for_one, 5, 10},
-  {ok, { Flags , []} }.
+  GipWorker = {gip_worker, {gip_worker, start_link,[]}, permanent, 2000, worker,[gip_worker]},
+  {ok, { Flags , [GipWorker]} }.
 
