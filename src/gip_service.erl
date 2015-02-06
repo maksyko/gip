@@ -10,7 +10,7 @@ get_geo_coordinates(_) -> {error, wrong_format_data}.
 
 prepare_geo_coordinates({ok,AddressInt}) ->
   {ok, {_, CountryCode,_CountryCode3, _CountryName, _Region, City, _Code, _Lat, _Lng,_,_}} =  egeoip:lookup(AddressInt),
-  {ok, [to_list(CountryCode), to_list(City)]};
+  {ok, [to_list(City),to_list(CountryCode)]};
 prepare_geo_coordinates(_) -> {error, wrong_format_data}.
 
 
