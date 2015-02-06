@@ -13,6 +13,7 @@
 -export([prepare_geo_coordinates/2]).
 
 -define(SERVER, ?MODULE).
+-define(LOG_INFO(Format, Data), lager:log(info, [], "~p.erl:~p: " ++ Format ++ "~n~n", [?MODULE, ?LINE] ++ Data)).
 -record(state, {}).
 
 %% =====================================================================================================================
@@ -32,7 +33,9 @@ init([]) ->
   {ok, #state{}}.
 
 handle_call({coord, IP}, _From, State) ->
-  {reply, gip_service:get_geo_coordinates(IP), State};
+  {ExecutTime, GetGeoCoordinates} = timer:tc(gip_service, get_geo_coordinates, [IP]),
+  ?LOG_INFO("get_geo_coordinates | input parameter | ~p ExecutTime ~p ms~n",[IP, ExecutTime/1000]),
+  {reply, GetGeoCoordinates , State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 

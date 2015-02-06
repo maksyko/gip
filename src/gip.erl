@@ -7,17 +7,17 @@
 ]).
 
 start() ->
-  F = fun({App, _, _}) -> App end,
-  RunningApps = lists:map(F, application:which_applications()),
-  LoadedApps = lists:map(F, application:loaded_applications()),
-  case lists:member(?MODULE, LoadedApps) of
-    true ->
-      true;
-    false ->
-      ok = application:load(?MODULE)
-  end,
-  {ok, Apps} = application:get_key(?MODULE, applications),
-  [ok = application:start(A) || A <- Apps ++ [?MODULE], not lists:member(A, RunningApps)],
+  application:start(crypto),
+  application:start(asn1),
+  application:start(public_key),
+  application:start(ssl),
+  application:start(sasl),
+  application:start(inets),
+  application:start(compiler),
+  application:start(syntax_tools),
+  application:start(egeoip),
+  application:start(lager),
+  application:start(gip),
   ok.
 stop() ->
   application:stop(?MODULE).

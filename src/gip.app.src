@@ -1,20 +1,11 @@
 {application, gip,
  [
   {description, "convert ip to geo coordinates"},
-  {vsn, "0.0.1"},
+  {vsn, "0.0.2"},
   {registered, []},
   {applications, [
     kernel,
-    stdlib,
-    crypto,
-    asn1,
-    public_key,
-    ssl,
-    sasl,
-    inets,
-    compiler,
-    syntax_tools,
-    egeoip
+    stdlib
   ]},
   {mod, { gip_app, []}},
   {env, []}
