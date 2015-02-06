@@ -5,7 +5,17 @@
   {registered, []},
   {applications, [
     kernel,
-    stdlib
+    stdlib,
+    crypto,
+    asn1,
+    public_key,
+    ssl,
+    sasl,
+    inets,
+    compiler,
+    syntax_tools,
+    egeoip,
+    lager
   ]},
   {mod, { gip_app, []}},
   {env, []}
