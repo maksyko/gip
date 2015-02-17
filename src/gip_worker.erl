@@ -15,6 +15,11 @@
 -define(SERVER, ?MODULE).
 -define(LOG_INFO(Format, Data), lager:log(info, [], "~p.erl:~p: " ++ Format ++ "~n~n", [?MODULE, ?LINE] ++ Data)).
 -record(state, {}).
+-define(ESCALATION(Type, Code, NodeName, ModuleName), [
+  {<<"type">>,Type},
+  {<<"code">>, Code},
+  {<<"node_name">>, NodeName},
+  {<<"module_name">>,ModuleName}]).
 
 %% =====================================================================================================================
 get_geo_coordinates(IP) -> prepare_geo_coordinates(coord, IP).
@@ -23,7 +28,9 @@ prepare_geo_coordinates(Type, IP) ->
   try
     gen_server:call(?MODULE, {Type, IP})
   catch
-    _:Error -> {error, Error}
+    _:Error ->
+      ep_conveyor:escalation(?ESCALATION(<<"ip_predicat">>, 101, atom_to_binary(node(), utf8), atom_to_binary(?MODULE, utf8))),
+      {error, Error}
   end.
 %% =====================================================================================================================
 start_link() ->
